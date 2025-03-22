@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-n6x+0qu0&-d&9io8dlcu8^!w8y_82!rn5psxrxtl6stg2shn@q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Allowed Hosts
+ALLOWED_HOSTS = ["*"]  # Change this in production
 
 
 # Application definition
@@ -37,17 +38,27 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "authentication",
+    # Third-party apps
+    "rest_framework",
+    "corsheaders",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+# CORS Configuration
+CORS_ALLOW_ALL_ORIGINS = True  # Allow all origins (for development)
+# For production, use:
+# CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "https://yourdomain.com"]
 
 ROOT_URLCONF = "config.urls"
 
@@ -78,6 +89,16 @@ DATABASES = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
+}
+
+# Rest Framework Settings (Optional)
+REST_FRAMEWORK = {
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+    ],
 }
 
 
@@ -121,3 +142,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "authentication.User"
