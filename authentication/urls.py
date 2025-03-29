@@ -11,3 +11,12 @@ router.register(r'expenses', ExpenseViewSet, basename="expense")
 
 # Include the router URLs
 urlpatterns = router.urls
+from django.urls import path
+from authentication.views import RegisterView, LoginView
+
+urlpatterns = [
+    path("register/", RegisterView.as_view(), name="register"),
+    path(
+        "login/", LoginView.as_view(), name="login"
+    ),  # Ensure this matches your API request
+]
