@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "authentication",
     # Third-party apps
     "rest_framework",
+    "drf_spectacular",
     "corsheaders",
 ]
 
@@ -94,6 +95,7 @@ DATABASES = {
 
 # Rest Framework Settings (Optional)
 REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_RENDERER_CLASSES": [
         "rest_framework.renderers.JSONRenderer",
     ],
