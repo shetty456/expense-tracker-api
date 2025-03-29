@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import register,display_users,login
+from authentication.views import RegisterView,LoginView
 
 urlpatterns = [
-            path('register/', register, name='register'),
-            path('display/',display_users , name='register'),
-            path('register/', login, name='register'),  # Ensure this matches your API request
+            path('register/', RegisterView.as_view(), name='register'),
+            path('login/', LoginView.as_view(), name='logintoexpencetracker'),  # Ensure this matches your API request
 ]
