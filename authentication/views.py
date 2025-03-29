@@ -5,16 +5,18 @@ from rest_framework.response import Response
 from .models import Expense
 from .serializers import ExpenseSerializer
 from datetime import timedelta, date
+
 # Create your views here.
 
-
-
-class ExpenseViewSet(viewsets.ViewSet):
+class ExpenseViewSet(viewsets.ModelViewSet):
     """Manages Expense CRUD operations."""
-
-    def list(self, request):
+    
+    queryset = Expense.objects.all()
+    serializer_class = ExpenseSerializer
+    
+    def list(self, request, *args, **kwargs):
         """List expenses with optional filters."""
-        queryset = Expense.objects.all()
+        queryset = self.get_queryset()
         filter_type = request.query_params.get("filter", None)
         today = date.today()
 
@@ -25,12 +27,14 @@ class ExpenseViewSet(viewsets.ViewSet):
         elif filter_type == "last_3_months":
             queryset = queryset.filter(date__gte=today - timedelta(days=90))
 
-        serializer = ExpenseSerializer(queryset, many=True)
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
     def create(self, request):
         """Create a new expense."""
-        serializer = ExpenseSerializer(data=request.data)
+        data = request.data
+        serializer = ExpenseSerializer(data=data)
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -42,13 +46,17 @@ class ExpenseViewSet(viewsets.ViewSet):
         serializer = ExpenseSerializer(expense)
         return Response(serializer.data)
 
-    def update(self, request, pk=None):
-        """Update an existing expense."""
-        expense = get_object_or_404(Expense, pk=pk)
-        serializer = ExpenseSerializer(expense, data=request.data)
+    def update(self, request, *args, **kwargs):
+        """Handle partial updates."""
+        expense = self.get_object()
+        serializer = self.get_serializer(
+            expense, data=request.data, partial=request.method == 'PATCH'
+        )
+        
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def destroy(self, request, pk=None):
