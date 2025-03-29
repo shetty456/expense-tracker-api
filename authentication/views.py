@@ -12,7 +12,7 @@ class RegisterView(GenericAPIView):
     serializer_class = UserSerializer
 
     def post(self,request):
-        if request.method == 'POST':
+        
             serializer = self.serializer_class(data=request.data)
             if serializer.is_valid():
                 serializer.save()
