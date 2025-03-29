@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "authentication",
     # Third-party apps
+    
     "rest_framework",
     "drf_spectacular",
     "corsheaders",
