@@ -37,5 +37,7 @@ class LoginView(GenericAPIView):
                 token = RefreshToken.for_user(user)
                 access_token = str(token.access_token)
                 return Response({"access_token": access_token, "refresh": str(token)})
+            else:
+                return Response({"Error:invalid username or password"})
         except:
-            return Response({"Error: user doesn't exist"})
+            return Response({"Error: user doesn't exists"})
