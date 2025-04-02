@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
-from .serializer import UserSerializer
+from authentication.serializer import UserSerializer, LoginSerializer
 from rest_framework.generics import GenericAPIView
 
 User = get_user_model()
@@ -26,7 +26,7 @@ class RegisterView(GenericAPIView):
 
 
 class LoginView(GenericAPIView):
-    serializer_class = UserSerializer
+    serializer_class = LoginSerializer
 
     def post(self, request):
         username = request.data.get("username")
@@ -38,5 +38,7 @@ class LoginView(GenericAPIView):
                 token = RefreshToken.for_user(user)
                 access_token = str(token.access_token)
                 return Response({"access_token": access_token, "refresh": str(token)})
+            else:
+                return Response({"Error:invalid username or password"})
         except:
-            return Response({"Error: user doesn't exist"})
+            return Response({"Error: user doesn't exists"})
