@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import get_user_model
-from .serializer import UserSerializer,LoginSerializer
+from authentication.serializer import UserSerializer, LoginSerializer
 from rest_framework.generics import GenericAPIView
 
 User = get_user_model()
