@@ -1,16 +1,16 @@
 # Expense Tracker API
 
-A simple expense tracker API built with Django and FastAPI.
+A simple expense tracker API built with Django and FastAPI.This backend application allows users to manage their expenses and categories. The API is designed to be lightweight, easily extendable, and perfect for tracking personal finances.
 
 ## Features
 - User authentication (To be added)
-- Expense tracking
-- Category management
-- Reports & summaries (To be added)
+- Expense tracking: Create, update, delete, and view expenses.
+- Category management : Users can categorize their expenses for better organization.
+- Reports & summaries :  (To be added, will allow users to see insights about their spending)
 
 ## Prerequisites
 Make sure you have the following installed:
-- Python (latest available version)
+- Python  : python 3
 - SQLite (default database, can be changed later)
 
 ## Setup Instructions
