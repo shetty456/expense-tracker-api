@@ -26,7 +26,7 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('api/', include('authentication.urls')),
+
     path("api/auth/", include("authentication.urls")),
     path('api/expenses/', include('expense.urls')),
     # OpenAPI Schema
