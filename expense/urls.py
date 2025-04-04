@@ -12,6 +12,6 @@ router.register(r'', ExpenseViewSet, basename="expense")
 # Include the router URLs
 urlpatterns = [
     path("", include(router.urls)), 
-    path("/sort",SortViews.as_view(),name="sorting")
+    path("sort",SortViews.as_view(),name="sorting")
     
 ]
